@@ -27,7 +27,7 @@ export interface FieldConfig {
   // className to apply to the field
   className?: string | ((values: any, errors: any, touched: any) => string);
   // any other props to pass to the control
-  custom?: any;
+  custom?: any | ((values: any, errors: any, touched: any) => any);
 }
 
 export interface ControlProps extends Omit<FieldConfig, "control"> {
@@ -123,6 +123,12 @@ export class FormFactory {
       typeof fieldProps.className === "function"
         ? fieldProps.className(values, errors, touched)
         : fieldProps.className;
+
+    // set default value for custom
+    fieldProps.custom =
+      typeof fieldProps.custom === "function"
+        ? fieldProps.custom(values, errors, touched)
+        : fieldProps.custom;
 
     // render the control
     return (

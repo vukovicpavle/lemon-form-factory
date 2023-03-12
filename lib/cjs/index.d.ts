@@ -13,7 +13,7 @@ export interface FieldConfig {
     error?: string | ((values: any, errors: any, touched: any) => string);
     helpText?: string | ((values: any, errors: any, touched: any) => string);
     className?: string | ((values: any, errors: any, touched: any) => string);
-    custom?: any;
+    custom?: any | ((values: any, errors: any, touched: any) => any);
 }
 export interface ControlProps extends Omit<FieldConfig, "control"> {
     value: any;
