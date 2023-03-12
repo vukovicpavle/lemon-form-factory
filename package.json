@@ -1,15 +1,23 @@
 {
-  "name": "lemon-api-factory",
+  "name": "@vukovicpavle/lemon-form-factory",
   "version": "1.0.0",
-  "description": "",
+  "description": "🍋 Form Factory is a library that helps you create forms in React with Formik.",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir lib/cjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:esm:watch": "tsc --watch",
+    "build:cjs:watch": "tsc --module commonjs --outDir lib/cjs --watch",
+    "build:watch": "npm run build:esm:watch & npm run build:cjs:watch",
+    "replace": "cd example && npm uninstall @vukovicpavle/lemon-form-factory && npm install ../ && cd ..",
+    "restart:example": "cd example && npm start",
+    "start": "concurrently \"npm run build:watch\" \"nodemon -w lib -e js,ts,tsx --exec 'npm run replace'\""
   },
   "keywords": [],
   "author": "",
@@ -17,11 +25,15 @@
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "concurrently": "^7.6.0",
+    "formik": "^2.2.9",
+    "nodemon": "^2.0.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
+    "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
