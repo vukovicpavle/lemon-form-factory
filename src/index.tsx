@@ -34,7 +34,14 @@ export interface ControlProps extends Omit<FieldConfig, "control"> {
   // value of the field
   value: any;
   // onChange handler for the field
-  onChange: (value: any) => void;
+  onChange: {
+    (e: React.ChangeEvent<any>): void;
+    <T = string | React.ChangeEvent<any>>(
+      field: T
+    ): T extends React.ChangeEvent<any>
+      ? void
+      : (e: string | React.ChangeEvent<any>) => void;
+  };
   // onBlur handler for the field
   onBlur: {
     (e: FocusEvent<any, Element>): void;
